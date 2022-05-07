@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.examples</groupId>
   <artifactId>hellodocker</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,5 +18,58 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <profiles>
+  	<profile>
+  		<id>docker</id>
+  		<build>
+  			<plugins>
+  				<plugin>
+  					<groupId>io.fabric8</groupId>
+  					<artifactId>docker-maven-plugin</artifactId>
+  					<version>0.34.1</version>
+  					<configuration>
+  						<showLogs>true</showLogs>
+  						<verbose>build</verbose>
+  						<images>
+  							<image>vn
+  								<name>java-hello-world</name>
+  								<build>
+  									<contextDir>${project.basedir}</contextDir>
+  									<args>
+  										<jarToCopy>${project.artifactId}-${project.version}.jar</jarToCopy>
+  									</args>
+  								</build>
+  								<run>
+  									<wait>
+  										<log>Hello World!</log>
+  										<time>10000</time>
+  									</wait>
+  								</run>
+  							</image>
+  						</images>
+  					</configuration>
+  					<executions>
+  						<execution>
+  							<id>docker-build-image</id>
+  							<phase>package</phase>
+  							<goals>
+  								<goal>build</goal>
+  							</goals>
+  						</execution>
+  						<execution>
+  							<id>docker-verify</id>
+  							<phase>verify</phase>
+  							<goals>
+  								<goal>start</goal>
+  								<goal>stop</goal>
+  							</goals>
+  						</execution>
+  					</executions>
+  				</plugin>
+  			</plugins>
+  		</build>
+  	</profile>
+  </profiles>
   
 </project>
