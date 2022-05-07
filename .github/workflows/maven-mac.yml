@@ -22,7 +22,7 @@ on:
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml','**/*.yml') }}
-          restore-ky: ${{ runner.os }}-m2-
+          restore-key: ${{ runner.os }}-m2-
       - name: Build with Maven
         run: mvn verify -Pdocker
         working-directory: com.examples.hellodocker  
