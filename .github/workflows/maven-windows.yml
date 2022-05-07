@@ -20,7 +20,7 @@ jobs:
       - name: Docker config
         run: >
           sc config docker
-          binpath="dockerd.exe --run-service -H tcp://localhost:2375
+          binpath="dockerd.exe --run-service -H tcp://localhost:2375"
       - name: Docker restart
         run: restart-service *docker*
       - name: Docker info
